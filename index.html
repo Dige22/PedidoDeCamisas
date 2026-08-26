@@ -808,28 +808,16 @@
 
       <div id="blocoTamanhos">
         <div class="tamanhos-lock" id="tamanhosLock">
-          <span>Escolha o kit acima para liberar os tamanhos</span>
+          <span>Escolha o kit e o modelo acima para liberar os tamanhos</span>
         </div>
 
         <div class="tamanhos-conteudo" id="tamanhosConteudo">
           <label class="field-label">Tamanho da camisa</label>
-          <div class="chip-row" id="chipsCamisa">
-            <div class="chip" data-val="P">P</div>
-            <div class="chip" data-val="M">M</div>
-            <div class="chip" data-val="G">G</div>
-            <div class="chip" data-val="GG">GG</div>
-            <div class="chip" data-val="XG">XG</div>
-          </div>
+          <div class="chip-row" id="chipsCamisa"></div>
 
           <div class="conditional" id="blocoCalcao">
             <label class="field-label">Tamanho do calção</label>
-            <div class="chip-row" id="chipsCalcao">
-              <div class="chip" data-val="P">P</div>
-              <div class="chip" data-val="M">M</div>
-              <div class="chip" data-val="G">G</div>
-              <div class="chip" data-val="GG">GG</div>
-              <div class="chip" data-val="XG">XG</div>
-            </div>
+            <div class="chip-row" id="chipsCalcao"></div>
           </div>
 
           <button type="button" class="medidas-link-btn" onclick="abrirModal('medidas')">Ver tabela de medidas</button>
@@ -1096,10 +1084,70 @@
       state.linha = card.dataset.linha;
       state.precoCamisa = parseFloat(card.dataset.camisa);
       state.precoCalcao = parseFloat(card.dataset.calcao);
-      document.getElementById('blocoTamanhos').classList.add('liberado');
+      atualizarLiberacaoTamanhos();
       atualizarTotal();
     });
   });
+
+  // Tamanhos reais por modelo
+  const tamanhosPorModelo = {
+    Masculino: ['PP', 'P', 'M', 'G', 'GG', 'G1', 'G2', 'G3', 'G4'],
+    Feminino: ['PP', 'P', 'M', 'G', 'GG', 'G1', 'G2', 'G3', 'G4'],
+    Infantil: ['02', '04', '06', '08', '10', '12', '14']
+  };
+
+  function atualizarLiberacaoTamanhos() {
+    const bloco = document.getElementById('blocoTamanhos');
+    if (state.linha && state.modelo) {
+      bloco.classList.add('liberado');
+    } else {
+      bloco.classList.remove('liberado');
+    }
+  }
+
+  function renderizarChips(containerId, stateKey) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+
+    const tamanhos = tamanhosPorModelo[state.modelo] || [];
+    tamanhos.forEach(tamanho => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.dataset.val = tamanho;
+      chip.textContent = tamanho;
+
+      chip.addEventListener('click', () => {
+        container.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        state[stateKey] = tamanho;
+      });
+
+      container.appendChild(chip);
+    });
+  }
+
+  function atualizarTamanhosDoModelo() {
+    // Ao trocar o modelo, qualquer tamanho anterior deixa de ser válido.
+    state.tamanhoCamisa = null;
+    state.tamanhoCalcao = null;
+
+    renderizarChips('chipsCamisa', 'tamanhoCamisa');
+    renderizarChips('chipsCalcao', 'tamanhoCalcao');
+    atualizarLiberacaoTamanhos();
+  }
+
+  function sincronizarTabelaComModelo() {
+    const mapa = { Masculino: 'masc', Feminino: 'fem', Infantil: 'inf' };
+    const aba = mapa[state.modelo];
+    if (!aba) return;
+
+    medidasTabs.querySelectorAll('button').forEach(b => {
+      b.classList.toggle('active', b.dataset.val === aba);
+    });
+    Object.entries(tabelas).forEach(([chave, tabela]) => {
+      tabela.classList.toggle('oculto', chave !== aba);
+    });
+  }
 
   // Modelo segmented toggle
   const segModelo = document.getElementById('segModelo');
@@ -1108,6 +1156,8 @@
       segModelo.querySelectorAll('button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       state.modelo = btn.dataset.val;
+      atualizarTamanhosDoModelo();
+      sincronizarTabelaComModelo();
     });
   });
 
@@ -1130,18 +1180,6 @@
     });
   });
 
-  // Size chips
-  function setupChips(containerId, stateKey) {
-    document.querySelectorAll('#' + containerId + ' .chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        document.querySelectorAll('#' + containerId + ' .chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        state[stateKey] = chip.dataset.val;
-      });
-    });
-  }
-  setupChips('chipsCamisa', 'tamanhoCamisa');
-  setupChips('chipsCalcao', 'tamanhoCalcao');
 
   document.getElementById('form').addEventListener('submit', function(e) {
     e.preventDefault();

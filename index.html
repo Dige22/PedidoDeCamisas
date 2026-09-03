@@ -175,6 +175,12 @@
     margin-bottom: 18px;
   }
 
+  .produtos-hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
   .kit-card {
     position: relative;
     cursor: pointer;
@@ -193,16 +199,20 @@
   }
 
   .kit-swatch {
-    height: 54px;
+    height: 44px;
     border-radius: 6px;
     margin-bottom: 12px;
     background: linear-gradient(135deg, var(--purple) 0 60%, #0c0d0f 60% 100%);
     border: 1px solid var(--line);
   }
 
+  .kit-card[data-produto="calcao"] .kit-swatch {
+    background: linear-gradient(135deg, #0c0d0f 0 70%, var(--purple) 70% 100%);
+  }
+
   .kit-card h3 {
     font-family: 'Oswald', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     margin: 0 0 8px;
@@ -227,7 +237,7 @@
     right: 10px;
     width: 18px;
     height: 18px;
-    border-radius: 50%;
+    border-radius: 5px;
     border: 2px solid var(--muted);
     background: transparent;
   }
@@ -236,6 +246,16 @@
     border-color: var(--accent);
     background: var(--accent);
     box-shadow: inset 0 0 0 3px var(--accent-dim);
+  }
+
+  .kit-card.active .check::after {
+    content: "✓";
+    position: absolute;
+    top: -3px;
+    left: 2px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #241a3d;
   }
 
   /* Segmented toggle */
@@ -595,6 +615,13 @@
     cursor: pointer;
   }
 
+  .modal-select-btn-secundario {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    margin-top: 8px;
+  }
+
   .medidas-link-btn {
     width: 100%;
     margin-top: 10px;
@@ -736,7 +763,7 @@
   <div class="masthead">
     <span class="tag">Modelo oficial</span>
     <h1>Pedido de camisas PHP United</h1>
-    <div class="sub">É este o uniforme que vamos fazer — escolha a versão e o tamanho abaixo</div>
+    <div class="sub">É este o uniforme que vamos fazer — escolha os produtos e tamanhos abaixo</div>
   </div>
 
   <div class="hero-jersey">
@@ -756,38 +783,38 @@
     </div>
 
     <div class="section">
-      <div class="stage"><span class="num">02</span><h2>Escolha do kit</h2></div>
+      <div class="stage"><span class="num">02</span><h2>Escolha os produtos</h2></div>
+      <div class="produtos-hint">Marque quantos quiser — dá pra combinar linhas diferentes</div>
 
-      <div class="kit-options">
-        <div class="kit-card" data-linha="Prata" data-camisa="59.90" data-calcao="50.00">
+      <div class="kit-options kit-options-4">
+        <div class="kit-card" data-produto="camisa" data-linha="Prata" data-preco="59.90">
           <div class="check"></div>
           <div class="kit-swatch"></div>
-          <h3>Linha Prata</h3>
-          <div class="kit-price-row"><span>Camisa</span><span class="amount">R$ 59,90</span></div>
-          <div class="kit-price-row"><span>Calção</span><span class="amount">R$ 50,00</span></div>
+          <h3>Camisa Prata</h3>
+          <div class="kit-price-row"><span>Preço</span><span class="amount">R$ 59,90</span></div>
           <button type="button" class="detalhes-link" data-modal="prata">Ver fotos e detalhes</button>
         </div>
-        <div class="kit-card" data-linha="Platinum" data-camisa="95.00" data-calcao="70.00">
+        <div class="kit-card" data-produto="camisa" data-linha="Platinum" data-preco="95.00">
           <div class="check"></div>
           <div class="kit-swatch"></div>
-          <h3>Linha Platinum</h3>
-          <div class="kit-price-row"><span>Camisa</span><span class="amount">R$ 95,00</span></div>
-          <div class="kit-price-row"><span>Calção</span><span class="amount">R$ 70,00</span></div>
+          <h3>Camisa Platinum</h3>
+          <div class="kit-price-row"><span>Preço</span><span class="amount">R$ 95,00</span></div>
           <button type="button" class="detalhes-link" data-modal="platinum">Ver fotos e detalhes</button>
         </div>
-      </div>
-
-      <label class="field-label">Modelo</label>
-      <div class="segmented" id="segModelo">
-        <button type="button" data-val="Masculino">Masculino</button>
-        <button type="button" data-val="Feminino">Feminino</button>
-        <button type="button" data-val="Infantil">Infantil</button>
-      </div>
-
-      <label class="field-label">Vai levar o calção?</label>
-      <div class="segmented" id="segCalcao">
-        <button type="button" data-val="nao" class="active">Não</button>
-        <button type="button" data-val="sim">Sim</button>
+        <div class="kit-card" data-produto="calcao" data-linha="Prata" data-preco="50.00">
+          <div class="check"></div>
+          <div class="kit-swatch"></div>
+          <h3>Calção Prata</h3>
+          <div class="kit-price-row"><span>Preço</span><span class="amount">R$ 50,00</span></div>
+          <button type="button" class="detalhes-link" data-modal="prata">Ver fotos e detalhes</button>
+        </div>
+        <div class="kit-card" data-produto="calcao" data-linha="Platinum" data-preco="70.00">
+          <div class="check"></div>
+          <div class="kit-swatch"></div>
+          <h3>Calção Platinum</h3>
+          <div class="kit-price-row"><span>Preço</span><span class="amount">R$ 70,00</span></div>
+          <button type="button" class="detalhes-link" data-modal="platinum">Ver fotos e detalhes</button>
+        </div>
       </div>
     </div>
 
@@ -808,14 +835,23 @@
 
       <div id="blocoTamanhos">
         <div class="tamanhos-lock" id="tamanhosLock">
-          <span>Escolha o kit e o modelo acima para liberar os tamanhos</span>
+          <span>Escolha ao menos um produto acima para liberar os tamanhos</span>
         </div>
 
         <div class="tamanhos-conteudo" id="tamanhosConteudo">
-          <label class="field-label">Tamanho da camisa</label>
-          <div class="chip-row" id="chipsCamisa"></div>
+          <label class="field-label">Modelo</label>
+          <div class="segmented" id="segModelo">
+            <button type="button" data-val="masculino" class="active">Masculino</button>
+            <button type="button" data-val="feminino">Feminino</button>
+            <button type="button" data-val="infantil">Infantil</button>
+          </div>
 
-          <div class="conditional" id="blocoCalcao">
+          <div class="conditional" id="blocoTamanhoCamisa">
+            <label class="field-label">Tamanho da camisa</label>
+            <div class="chip-row" id="chipsCamisa"></div>
+          </div>
+
+          <div class="conditional" id="blocoTamanhoCalcao">
             <label class="field-label">Tamanho do calção</label>
             <div class="chip-row" id="chipsCalcao"></div>
           </div>
@@ -875,7 +911,8 @@
           <li>Proteção UV30+</li>
         </ul>
       </div>
-      <button type="button" class="modal-select-btn" onclick="selecionarESharFechar('Prata')">Selecionar esta linha</button>
+      <button type="button" class="modal-select-btn" onclick="selecionarESharFechar('camisa', 'Prata')">Selecionar camisa Prata</button>
+      <button type="button" class="modal-select-btn modal-select-btn-secundario" onclick="selecionarESharFechar('calcao', 'Prata')">Selecionar calção Prata</button>
     </div>
   </div>
 </div>
@@ -921,7 +958,17 @@
           <li>Proteção UV30+</li>
         </ul>
       </div>
-      <button type="button" class="modal-select-btn" onclick="selecionarESharFechar('Platinum')">Selecionar esta linha</button>
+      <div class="feature-group">
+        <h4>Itens adicionais</h4>
+        <ul>
+          <li>Número no calção — R$ 2,00</li>
+          <li>Número frontal na camisa — R$ 2,00</li>
+          <li>Logo dentro do número — R$ 2,00</li>
+          <li>Escudo patch bordado extra — R$ 10,00</li>
+        </ul>
+      </div>
+      <button type="button" class="modal-select-btn" onclick="selecionarESharFechar('camisa', 'Platinum')">Selecionar camisa Platinum</button>
+      <button type="button" class="modal-select-btn modal-select-btn-secundario" onclick="selecionarESharFechar('calcao', 'Platinum')">Selecionar calção Platinum</button>
     </div>
   </div>
 </div>
@@ -1006,11 +1053,12 @@
     montarDots(nome);
   }
 
-  function abrirModal(nome) {
+  function abrirModal(nome, indiceInicial) {
     document.getElementById('modal-' + nome).classList.add('open');
     if (nome === 'prata' || nome === 'platinum') {
-      galleryState[nome] = 0;
-      document.querySelector('#gallery-' + nome + ' .gallery-track').style.transform = 'translateX(0)';
+      const inicio = (typeof indiceInicial === 'number') ? indiceInicial : 0;
+      galleryState[nome] = inicio;
+      document.querySelector('#gallery-' + nome + ' .gallery-track').style.transform = 'translateX(-' + (inicio * 100) + '%)';
       montarDots(nome);
     }
   }
@@ -1031,16 +1079,22 @@
     });
   });
 
-  function selecionarESharFechar(linha) {
-    const card = document.querySelector('.kit-card[data-linha="' + linha + '"]');
-    card.click();
+  function selecionarESharFechar(produto, linha) {
+    const card = document.querySelector('.kit-card[data-produto="' + produto + '"][data-linha="' + linha + '"]');
+    if (card && !card.classList.contains('active')) {
+      card.click();
+    }
     fecharModal(linha.toLowerCase());
   }
 
   document.querySelectorAll('.detalhes-link').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      abrirModal(btn.dataset.modal);
+      const nomeModal = btn.dataset.modal;
+      const card = btn.closest('.kit-card');
+      const ehCalcao = card && card.dataset.produto === 'calcao';
+      const indiceInicial = ehCalcao ? gallerySizes[nomeModal] - 1 : 0;
+      abrirModal(nomeModal, indiceInicial);
     });
   });
 
@@ -1056,13 +1110,17 @@
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVdebAPd3runHFJnkflynb2CAHuSYihiJW3B_9wHIqJOD_zG-SxoP5b89En7Phaumpyw/exec';
 
   const state = {
-    linha: null,
-    precoCamisa: 0,
-    precoCalcao: 0,
-    modelo: null,
-    temCalcao: 'nao',
+    camisa: null,      // { linha, preco } ou null
+    calcao: null,      // { linha, preco } ou null
+    modelo: 'masculino', // masculino | feminino | infantil
     tamanhoCamisa: null,
     tamanhoCalcao: null
+  };
+
+  const TAMANHOS_POR_MODELO = {
+    masculino: ['PP', 'P', 'M', 'G', 'GG', 'G1', 'G2', 'G3', 'G4'],
+    feminino: ['PP', 'P', 'M', 'G', 'GG', 'G1', 'G2', 'G3', 'G4'],
+    infantil: ['02', '04', '06', '08', '10', '12', '14']
   };
 
   function formatMoney(v) {
@@ -1071,132 +1129,103 @@
 
   function atualizarTotal() {
     let total = 0;
-    if (state.linha) total += state.precoCamisa;
-    if (state.linha && state.temCalcao === 'sim') total += state.precoCalcao;
+    if (state.camisa) total += state.camisa.preco;
+    if (state.calcao) total += state.calcao.preco;
     document.getElementById('totalValor').innerText = formatMoney(total);
   }
 
-  // Kit cards
-  document.querySelectorAll('.kit-card').forEach(card => {
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.kit-card').forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      state.linha = card.dataset.linha;
-      state.precoCamisa = parseFloat(card.dataset.camisa);
-      state.precoCalcao = parseFloat(card.dataset.calcao);
-      atualizarLiberacaoTamanhos();
-      atualizarTotal();
-    });
-  });
+  function renderizarChipsDeTamanho() {
+    const tamanhos = TAMANHOS_POR_MODELO[state.modelo];
 
-  // Tamanhos reais por modelo
-  const tamanhosPorModelo = {
-    Masculino: ['PP', 'P', 'M', 'G', 'GG', 'G1', 'G2', 'G3', 'G4'],
-    Feminino: ['PP', 'P', 'M', 'G', 'GG', 'G1', 'G2', 'G3', 'G4'],
-    Infantil: ['02', '04', '06', '08', '10', '12', '14']
-  };
+    ['chipsCamisa', 'chipsCalcao'].forEach(containerId => {
+      const container = document.getElementById(containerId);
+      container.innerHTML = tamanhos.map(t => '<div class="chip" data-val="' + t + '">' + t + '</div>').join('');
+    });
+
+    // Trocar de modelo invalida o tamanho escolhido antes (P não existe mais em Infantil, etc.)
+    state.tamanhoCamisa = null;
+    state.tamanhoCalcao = null;
+  }
 
   function atualizarLiberacaoTamanhos() {
     const bloco = document.getElementById('blocoTamanhos');
-    if (state.linha && state.modelo) {
-      bloco.classList.add('liberado');
-    } else {
-      bloco.classList.remove('liberado');
+    const temAlgumProduto = !!(state.camisa || state.calcao);
+    bloco.classList.toggle('liberado', temAlgumProduto);
+
+    document.getElementById('blocoTamanhoCamisa').classList.toggle('open', !!state.camisa);
+    document.getElementById('blocoTamanhoCalcao').classList.toggle('open', !!state.calcao);
+
+    if (!state.camisa) {
+      state.tamanhoCamisa = null;
+      document.querySelectorAll('#chipsCamisa .chip').forEach(c => c.classList.remove('active'));
+    }
+    if (!state.calcao) {
+      state.tamanhoCalcao = null;
+      document.querySelectorAll('#chipsCalcao .chip').forEach(c => c.classList.remove('active'));
     }
   }
 
-  function renderizarChips(containerId, stateKey) {
-    const container = document.getElementById(containerId);
-    container.innerHTML = '';
-
-    const tamanhos = tamanhosPorModelo[state.modelo] || [];
-    tamanhos.forEach(tamanho => {
-      const chip = document.createElement('div');
-      chip.className = 'chip';
-      chip.dataset.val = tamanho;
-      chip.textContent = tamanho;
-
-      chip.addEventListener('click', () => {
-        container.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        state[stateKey] = tamanho;
-      });
-
-      container.appendChild(chip);
-    });
-  }
-
-  function atualizarTamanhosDoModelo() {
-    // Ao trocar o modelo, qualquer tamanho anterior deixa de ser válido.
-    state.tamanhoCamisa = null;
-    state.tamanhoCalcao = null;
-
-    renderizarChips('chipsCamisa', 'tamanhoCamisa');
-    renderizarChips('chipsCalcao', 'tamanhoCalcao');
-    atualizarLiberacaoTamanhos();
-  }
-
-  function sincronizarTabelaComModelo() {
-    const mapa = { Masculino: 'masc', Feminino: 'fem', Infantil: 'inf' };
-    const aba = mapa[state.modelo];
-    if (!aba) return;
-
-    medidasTabs.querySelectorAll('button').forEach(b => {
-      b.classList.toggle('active', b.dataset.val === aba);
-    });
-    Object.entries(tabelas).forEach(([chave, tabela]) => {
-      tabela.classList.toggle('oculto', chave !== aba);
-    });
-  }
-
-  // Modelo segmented toggle
+  // Seletor de Modelo (Masculino/Feminino/Infantil) — troca o conjunto de tamanhos disponível
   const segModelo = document.getElementById('segModelo');
   segModelo.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', () => {
       segModelo.querySelectorAll('button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       state.modelo = btn.dataset.val;
-      atualizarTamanhosDoModelo();
-      sincronizarTabelaComModelo();
+      renderizarChipsDeTamanho();
     });
   });
 
-  // Calção segmented toggle
-  const segCalcao = document.getElementById('segCalcao');
-  const blocoCalcao = document.getElementById('blocoCalcao');
-  segCalcao.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      segCalcao.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      state.temCalcao = btn.dataset.val;
-      if (state.temCalcao === 'sim') {
-        blocoCalcao.classList.add('open');
+  // Cards de produto — seleção múltipla e independente (camisa e calção cada um só permite 1 linha por vez)
+  document.querySelectorAll('.kit-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const produto = card.dataset.produto; // 'camisa' ou 'calcao'
+      const linha = card.dataset.linha;
+      const preco = parseFloat(card.dataset.preco);
+      const jaEstavaAtivo = card.classList.contains('active');
+
+      // Desmarca outros cards do MESMO produto (não pode ter 2 camisas ao mesmo tempo)
+      document.querySelectorAll('.kit-card[data-produto="' + produto + '"]').forEach(c => c.classList.remove('active'));
+
+      if (jaEstavaAtivo) {
+        // clicar de novo no mesmo card desmarca (remove o produto do pedido)
+        state[produto] = null;
       } else {
-        blocoCalcao.classList.remove('open');
-        state.tamanhoCalcao = null;
-        document.querySelectorAll('#chipsCalcao .chip').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        state[produto] = { linha: linha, preco: preco };
       }
+
+      atualizarLiberacaoTamanhos();
       atualizarTotal();
     });
   });
 
+  // Size chips — delegação de evento porque os chips são recriados ao trocar de Modelo
+  function setupChips(containerId, stateKey) {
+    document.getElementById(containerId).addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      document.querySelectorAll('#' + containerId + ' .chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      state[stateKey] = chip.dataset.val;
+    });
+  }
+  setupChips('chipsCamisa', 'tamanhoCamisa');
+  setupChips('chipsCalcao', 'tamanhoCalcao');
+  renderizarChipsDeTamanho();
 
   document.getElementById('form').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    if (!state.linha) {
-      mostrarErro('Selecione a linha do uniforme.');
+    if (!state.camisa && !state.calcao) {
+      mostrarErro('Selecione ao menos um produto (camisa e/ou calção).');
       return;
     }
-    if (!state.modelo) {
-      mostrarErro('Selecione o modelo: masculino, feminino ou infantil.');
-      return;
-    }
-    if (!state.tamanhoCamisa) {
+    if (state.camisa && !state.tamanhoCamisa) {
       mostrarErro('Selecione o tamanho da camisa.');
       return;
     }
-    if (state.temCalcao === 'sim' && !state.tamanhoCalcao) {
+    if (state.calcao && !state.tamanhoCalcao) {
       mostrarErro('Selecione o tamanho do calção.');
       return;
     }
@@ -1207,17 +1236,19 @@
     resultado.className = '';
     resultado.innerText = 'Enviando...';
 
+    const total = (state.camisa ? state.camisa.preco : 0) + (state.calcao ? state.calcao.preco : 0);
+
     const dados = {
       nome: document.getElementById('nome').value,
       celular: document.getElementById('celular').value,
-      linha: state.linha,
+      linhaCamisa: state.camisa ? state.camisa.linha : '',
+      linhaCalcao: state.calcao ? state.calcao.linha : '',
       modelo: state.modelo,
-      temCalcao: state.temCalcao,
       nomeCostas: document.getElementById('nomeCostas').value,
       numero: document.getElementById('numero').value,
-      tamanhoCamisa: state.tamanhoCamisa,
+      tamanhoCamisa: state.tamanhoCamisa || '',
       tamanhoCalcao: state.tamanhoCalcao || '',
-      total: (state.linha ? state.precoCamisa + (state.temCalcao === 'sim' ? state.precoCalcao : 0) : 0).toFixed(2)
+      total: total.toFixed(2)
     };
 
     enviarParaAppsScript(dados, function() {
@@ -1225,8 +1256,16 @@
       resultado.innerText = 'Pedido enviado com sucesso!';
       btn.disabled = false;
       document.getElementById('form').reset();
-      document.querySelectorAll('.kit-card, .chip, #segModelo button').forEach(el => el.classList.remove('active'));
-      document.getElementById('blocoTamanhos').classList.remove('liberado');
+      document.querySelectorAll('.kit-card, .chip, .segmented button').forEach(el => el.classList.remove('active'));
+      segModelo.querySelector('button[data-val="masculino"]').classList.add('active');
+      state.camisa = null;
+      state.calcao = null;
+      state.modelo = 'masculino';
+      state.tamanhoCamisa = null;
+      state.tamanhoCalcao = null;
+      renderizarChipsDeTamanho();
+      atualizarLiberacaoTamanhos();
+      atualizarTotal();
     }, function() {
       mostrarErro('Não foi possível enviar. Verifique sua internet e tente de novo.');
       btn.disabled = false;
